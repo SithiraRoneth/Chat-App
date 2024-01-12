@@ -31,7 +31,7 @@ public class Server {
         new Thread(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(3000);
-                txtArea.appendText("Server Typing");
+                txtArea.appendText("Server Typing...");
 
                 Socket socket = serverSocket.accept();
                 txtArea.appendText("\nClient Online");
