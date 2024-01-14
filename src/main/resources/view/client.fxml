@@ -2,13 +2,20 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.Client">
    <children>
       <JFXTextField fx:id="txtMsg" layoutX="23.0" layoutY="349.0" prefHeight="26.0" prefWidth="498.0" />
       <TextArea fx:id="txtArea" layoutX="13.0" layoutY="22.0" prefHeight="299.0" prefWidth="574.0" />
       <JFXButton layoutX="522.0" layoutY="349.0" onAction="#btnSendOnAction" style="-fx-background-color: green;" text="Send" textFill="WHITE" />
+      <Label layoutX="14.0" layoutY="5.0" text="CLIENT">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
