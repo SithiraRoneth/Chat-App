@@ -5,6 +5,7 @@
  * */
 package lk.ijse;
 
+import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -20,6 +21,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    @FXML
+    private JFXComboBox<String >cmbEmoji;
     @FXML
     private AnchorPane root;
     @FXML
@@ -51,7 +54,7 @@ public class Server {
                 throw new RuntimeException(e);
             }
         }).start();
-
+        cmbEmoji.getItems().addAll("😊", "😂", "😍", "👍", "🎉");
         root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 try {
@@ -63,11 +66,31 @@ public class Server {
         });
     }
     public void btnSendOnAction(ActionEvent actionEvent) throws IOException {
-        dataOutputStream.writeUTF(txtMsg.getText().trim());
+        String emojiMessage = setEmoji(actionEvent);
+        String textMessage = txtMsg.getText().trim();
+
+        String combinedMessage = textMessage + (emojiMessage != null ? " " + emojiMessage : "");
+
+        dataOutputStream.writeUTF(combinedMessage);
         dataOutputStream.flush();
         clearFiled();
     }
     public void clearFiled(){
         txtMsg.setText("");
+    }
+    public String setEmoji(ActionEvent actionEvent){
+        String selectedEmoji = cmbEmoji.getValue();
+
+        if (selectedEmoji != null && !selectedEmoji.isEmpty()) {
+            txtArea.appendText("\nServer: " + selectedEmoji);
+
+            try {
+                dataOutputStream.writeUTF(selectedEmoji);
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return selectedEmoji;
     }
 }
