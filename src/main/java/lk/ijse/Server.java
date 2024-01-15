@@ -8,11 +8,14 @@ package lk.ijse;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -22,7 +25,7 @@ import java.net.Socket;
 
 public class Server {
     @FXML
-    private JFXComboBox<String >cmbEmoji;
+    private JFXComboBox<String> cmbEmoji;
     @FXML
     private AnchorPane root;
     @FXML
@@ -34,11 +37,11 @@ public class Server {
     String message="";
 
 
-    public void initialize(){
+    public void initialize() throws IOException {
         new Thread(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(3000);
-                txtArea.appendText("Server Typing...");
+                txtArea.appendText("Online");
 
                 Socket socket = serverSocket.accept();
                 txtArea.appendText("\nClient Online");
@@ -54,7 +57,9 @@ public class Server {
                 throw new RuntimeException(e);
             }
         }).start();
+
         cmbEmoji.getItems().addAll("😊", "😂", "😍", "👍", "🎉");
+
         root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 try {
@@ -77,6 +82,7 @@ public class Server {
     }
     public void clearFiled(){
         txtMsg.setText("");
+        cmbEmoji.setValue("");
     }
     public String setEmoji(ActionEvent actionEvent){
         String selectedEmoji = cmbEmoji.getValue();

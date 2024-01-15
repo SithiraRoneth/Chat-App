@@ -17,7 +17,7 @@ public class Server_Initializer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/server.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/login.fxml"))));
         stage.setTitle("Server");
         stage.centerOnScreen();
         stage.show();

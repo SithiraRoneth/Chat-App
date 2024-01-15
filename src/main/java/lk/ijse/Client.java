@@ -35,7 +35,7 @@ public class Client {
         new Thread(() -> {
             try {
                 Socket socket = new Socket("localhost", 3000);
-                txtArea.appendText("Client");
+                txtArea.appendText("Server Online");
                 dataInputStream = new DataInputStream(socket.getInputStream());
                 dataOutputStream= new DataOutputStream(socket.getOutputStream());
 
